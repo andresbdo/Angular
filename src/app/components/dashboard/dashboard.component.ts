@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  user: string;
+  constructor(
+    public auth: AuthService
+  ) { 
+    this.user = this.auth.user.username
+  }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit(): void { 
   }
 
 }
