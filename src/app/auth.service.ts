@@ -6,17 +6,17 @@ import { _isNumberValue } from '@angular/cdk/coercion';
   providedIn: 'root'
 })
 export class AuthService {
+  private _user: User;
 
-  private _user: User = null;
   constructor(){
-    this._user = new User();
     this.getUserFromLocalStorage();  
   }
 
   login(ingresedUsername: string){
-    if(!this._user.username){
+    if(!this._user){
+      this._user = new User();
       this._user.username = ingresedUsername;
-      localStorage.setItem('username', this._user.username);
+      localStorage.setItem('user', JSON.stringify(this._user));
     }
   }
 
@@ -25,8 +25,8 @@ export class AuthService {
   }
 
   getUserFromLocalStorage(){
-    if(!this.user.username){
-      this._user.username = localStorage.getItem('username');
+    if(localStorage.getItem('user')){
+      this._user = JSON.parse(localStorage.getItem('user'));
     }
   }
 }

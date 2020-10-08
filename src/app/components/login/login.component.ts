@@ -1,7 +1,6 @@
 import { AuthService } from '../../auth.service';
-import { User } from './../../models/User';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup} from '@angular/forms'; 
+import { FormControl, FormGroup, Validators} from '@angular/forms'; 
 import { Router } from '@angular/router';
 
 
@@ -15,8 +14,18 @@ import { Router } from '@angular/router';
 
 export class LoginComponent implements OnInit { 
   loginForm:FormGroup = new FormGroup({
-    username: new FormControl('')
+    username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)])
   })
+  public username = this.loginForm.get('username');
+
+  getErrorMessage() {
+    if (this.username.hasError('required')) {
+      return 'Ingresa un nombre de usuario';
+    }else if(this.username.hasError('minlength') || this.username.hasError('maxlength')){
+      return 'El nombre de usuario debe tener entre 3 y 20 caracteres';
+    }
+    return '';
+  }
 
   constructor(
     public router: Router,
@@ -25,18 +34,17 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.auth.user.username){
+    if(this.auth.user){
       this.router.navigate(['dashboard']);
     }
   }
 
   sendForm(): void {
     this.loginForm.markAllAsTouched();
-    let username = this.loginForm.get('username');
-    if(username.hasError('required') || username.hasError('minlength') || username.hasError('maxlength')){
+    if(this.username.hasError('required') || this.username.hasError('minlength') || this.username.hasError('maxlength')){
       return;
     }else{
-      this.auth.login(username.value)
+      this.auth.login(this.username.value)
       this.router.navigate(['dashboard']);
     }
   }

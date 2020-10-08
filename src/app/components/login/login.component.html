@@ -1,12 +1,11 @@
 <div class="login">
     <h1>¡Hola!</h1>
-    <form class="example-form" [formGroup]="loginForm">
-        <mat-form-field class="example-full-width">
-            <mat-label>Username</mat-label>
-            <input matInput type="text" formControlName="username" required minlength="3" maxlength="20"> 
+    <form [formGroup]="loginForm">
+        <mat-form-field>
+            <mat-label>Nombre de usuario</mat-label>
+            <input (keyDown.enter)="sendForm()" matInput type="text" formControlName="username"> 
+            <mat-error for="email" class="form-error">{{ getErrorMessage() }}</mat-error>
         </mat-form-field>
-        <p class="error" *ngIf="loginForm.touched && loginForm.get('username').hasError('required')">Introduce un nombre de usuario</p>
-        <p class="error" *ngIf="loginForm.touched && (loginForm.get('username').hasError('minlength') || loginForm.get('username').hasError('maxlength'))">El nombre de usuario debe contener entre 3 y 20 caracteres</p>
     </form>
     <button mat-raised-button color="primary" (click)="sendForm()">Entrar</button>
 </div>
