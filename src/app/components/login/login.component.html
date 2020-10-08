@@ -1,0 +1,11 @@
+<div class="login">
+    <h1>¡Hola!</h1>
+    <form [formGroup]="loginForm">
+        <mat-form-field>
+            <mat-label>Nombre de usuario</mat-label>
+            <input (keyDown.enter)="sendForm()" matInput type="text" formControlName="username"> 
+            <mat-error for="email" class="form-error">{{ getErrorMessage() }}</mat-error>
+        </mat-form-field>
+    </form>
+    <button mat-raised-button color="primary" (click)="sendForm()">Entrar</button>
+</div>
