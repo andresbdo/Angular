@@ -1,5 +1,5 @@
 import { User } from './models/User';
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
 
 @Injectable({
@@ -12,10 +12,10 @@ export class AuthService {
     this.getUserFromLocalStorage();  
   }
 
-  login(ingresedUsername: string){
+  login(inputUsername: string){
     if(!this._user){
       this._user = new User();
-      this._user.username = ingresedUsername;
+      this._user.username = inputUsername;
       localStorage.setItem('user', JSON.stringify(this._user));
     }
   }
