@@ -18,3 +18,15 @@ button{
     color: red;
     font-size: 10px;
 }
+
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+}
+
+mat-form-field{
+    margin-top: 2em;
+}
