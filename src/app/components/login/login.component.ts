@@ -6,6 +6,7 @@ import errors from '../../utils/errorCodes';
 
 
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit {
     username: this.loginForm.get('username'),
     amount: this.loginForm.get('amount')
   };
+
 
   constructor(
     public router: Router,

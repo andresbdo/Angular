@@ -9,6 +9,7 @@ import  errors  from '../../utils/errorCodes';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
   betForm: FormGroup = new FormGroup({
     amount: new FormControl('', [Validators.required, this.amountError]),
     cashOut: new FormControl('', [Validators.required, this.cashOutError]),
@@ -19,6 +20,7 @@ export class DashboardComponent implements OnInit {
     cashOut: this.betForm.get('cashOut')
   }
   
+
   constructor(
     public auth: AuthService
   ) { 
