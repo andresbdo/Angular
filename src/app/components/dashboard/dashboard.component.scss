@@ -5,10 +5,16 @@
     .sidebar{
         height: 100%;
         .card{
-            height: 95%;
-            .header-avatar{
-                background-image: url('https://as00.epimg.net/img/comunes/fotos/fichas/deportistas/c/cri/large/14558.png');
-                background-size: cover;
+            height: 100%;
+            .card-header{
+                button{
+                    margin-left: auto;
+                    font-size: 0.8em;
+                }
+                .header-avatar{
+                    background-image: url('https://as00.epimg.net/img/comunes/fotos/fichas/deportistas/c/cri/large/14558.png');
+                    background-size: cover;
+                }
             }
             .bet{
                 h3{
@@ -16,6 +22,9 @@
                     margin-bottom: 0;
                 }
                 button{
+                    margin-top: 1em;
+                }
+                mat-form-field{
                     margin-top: 1em;
                 }
             }
