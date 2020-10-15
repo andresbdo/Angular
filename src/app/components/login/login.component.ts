@@ -2,6 +2,8 @@ import { AuthService } from '../../auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms'; 
 import { Router } from '@angular/router';
+import errors from '../../utils/errorCodes';
+
 
 
 
@@ -14,18 +16,15 @@ import { Router } from '@angular/router';
 
 export class LoginComponent implements OnInit { 
   loginForm:FormGroup = new FormGroup({
-    username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)])
+    username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
+    amount: new FormControl('', [Validators.required, Validators.min(10), Validators.max(100000)]),
   })
-  public username = this.loginForm.get('username');
+  
+  controlNames = {
+    username: this.loginForm.get('username'),
+    amount: this.loginForm.get('amount')
+  };
 
-  getErrorMessage() {
-    if (this.username.hasError('required')) {
-      return 'Ingresa un nombre de usuario';
-    }else if(this.username.hasError('minlength') || this.username.hasError('maxlength')){
-      return 'El nombre de usuario debe tener entre 3 y 20 caracteres';
-    }
-    return '';
-  }
 
   constructor(
     public router: Router,
@@ -39,12 +38,26 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  getErrorMessage(input: string) {
+    let errorsAux;
+    if (this.controlNames[input]) errorsAux = this.controlNames[input].errors;
+    if (errorsAux) {
+      const keys = Object.keys(this.controlNames[input].errors);
+      if (!keys || keys.length === 0) return '';
+      console.log(errors[Object.keys(this.controlNames[input].errors)[0]])
+      return errors[Object.keys(this.controlNames[input].errors)[0]];
+    } else {
+      return '';
+    }
+  }
+
+
   sendForm(): void {
     this.loginForm.markAllAsTouched();
-    if(this.username.hasError('required') || this.username.hasError('minlength') || this.username.hasError('maxlength')){
+    if(this.loginForm.invalid){
       return;
     }else{
-      this.auth.login(this.username.value)
+      this.auth.login(this.controlNames.username.value, this.controlNames.amount.value)
       this.router.navigate(['dashboard']);
     }
   }

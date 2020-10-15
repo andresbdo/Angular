@@ -3,8 +3,13 @@
     <form [formGroup]="loginForm">
         <mat-form-field>
             <mat-label>Nombre de usuario</mat-label>
-            <input (keyDown.enter)="sendForm()" matInput type="text" formControlName="username"> 
-            <mat-error for="email" class="form-error">{{ getErrorMessage() }}</mat-error>
+            <input (keyDown.enter)="sendForm()" matInput type="text" formControlName="username" name="username"> 
+            <mat-error for="username">{{ getErrorMessage("username") }}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Monto inicial</mat-label>
+            <input (keyDown.enter)="sendForm()" matInput type="number" formControlName="amount" name="amount"> 
+            <mat-error for="amount">{{ getErrorMessage("amount") }}</mat-error>
         </mat-form-field>
     </form>
     <button mat-raised-button color="primary" (click)="sendForm()">Entrar</button>

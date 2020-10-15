@@ -1,5 +1,64 @@
-h1{
-    text-align: center;
-    margin: 3em;
-    color: #673AB7;
+.container{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    .sidebar{
+        height: 100%;
+        .card{
+            height: 100%;
+            .card-header{
+                button{
+                    margin-left: auto;
+                    font-size: 0.8em;
+                }
+                .header-avatar{
+                    background-image: url('https://as00.epimg.net/img/comunes/fotos/fichas/deportistas/c/cri/large/14558.png');
+                    background-size: cover;
+                }
+            }
+            .bet{
+                h3{
+                    margin-top: 1em;
+                    margin-bottom: 0;
+                }
+                button{
+                    margin-top: 1em;
+                }
+                mat-form-field{
+                    margin-top: 1em;
+                }
+            }
+        }
+    }
+    
+    .main{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        .game-panel{
+            flex: 9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .results{
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            h4{
+                margin: 0;
+            }
+            ul{
+                display: flex;
+                list-style: none;
+                li{
+                    margin: 0 2em;
+                }
+            }
+        }
+    }
 }
