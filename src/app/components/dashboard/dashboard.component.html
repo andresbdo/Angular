@@ -13,12 +13,12 @@
                     <form [formGroup]="betForm">
                         <mat-form-field>
                             <mat-label>Monto</mat-label>
-                            <input (keyDown.enter)="sendForm()" matInput type="number" formControlName="amount" name="amount"> 
+                            <input (keyDown.enter)="sendForm()" matInput type="number" formControlName="amount" name="amount">
                             <mat-error for="amount">{{ getErrorMessage("amount") }}</mat-error>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Salida</mat-label>
-                            <input (keyDown.enter)="sendForm()" matInput type="number" formControlName="cashOut" name="cashOut" step="0.1" min="1.1" max="10.0"> 
+                            <input (keyDown.enter)="sendForm()" matInput type="number" formControlName="cashOut" name="cashOut" step="0.1" min="1.1" max="10.0">
                             <mat-error for="cashOut">{{ getErrorMessage("cashOut") }}</mat-error>
                         </mat-form-field>
                     </form>
@@ -37,6 +37,9 @@
                 <li>8.1x</li>
                 <li>3.0x</li>
             </ul>
-        </section> 
+        </section>
     </section>
 </div>
+
+
+<app-players></app-players>

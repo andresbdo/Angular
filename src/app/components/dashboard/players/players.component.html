@@ -1,0 +1,5 @@
+<section class="container">
+  <p *ngIf="!(api.players$ | async).length">Cargando...</p>
+
+  <p *ngFor="let player of api.players$ | async; index as i"> {{ i+1 }} - {{player.name}} <br> {{player.email}}</p>
+</section>
