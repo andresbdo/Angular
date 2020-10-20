@@ -37,7 +37,7 @@ export class AddFundsComponent implements OnInit {
     if(this.balanceForm.invalid){
       return;
     }
-    this.auth.updateBalance(this.balanceForm.get('amount').value, "add");
+    this.auth.addBalance(this.balanceForm.get('amount').value);
     this.dialogRef.close(true); 
   }
 

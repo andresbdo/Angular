@@ -4,7 +4,7 @@
             <mat-card-header class="card-header">
                 <div mat-card-avatar class="header-avatar"></div>
                 <mat-card-title>{{auth.user.username}}</mat-card-title>
-                <mat-card-subtitle>{{auth.user.balance}}$</mat-card-subtitle>
+                <mat-card-subtitle>{{auth.user.balance | number: '0.1'}}$</mat-card-subtitle>
                 <button mat-button color="primary" (click)="openDialog()">Agregar saldo</button>
             </mat-card-header>
             <mat-card-content>
@@ -32,10 +32,10 @@
                         <p>Resultado</p>
                     </div>
                     <div>
-                        <ul class="bet-history_list" *ngFor="let bet of auth.user.betHistory">
-                            <li>{{bet[0].toFixed(1)}}</li>
-                            <li>{{bet[1]}}</li>
-                            <li>{{bet[2].toFixed(1)}}</li>
+                        <ul class="bet-history_list" *ngFor="let bet of auth.user.betHistory.reverse()">
+                            <li>{{bet[0] | number: '0.1'}}</li>
+                            <li>{{bet[1] | number: '0.1'}}</li>
+                            <li>{{bet[2] | number: '0.1' }}</li>
                         </ul>
                     </div>
                 </div>

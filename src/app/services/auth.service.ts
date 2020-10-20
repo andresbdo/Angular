@@ -21,19 +21,20 @@ export class AuthService {
     }
   }
 
-  public updateBalance(amount: number, operation: string){
+  public addBalance(amount: number){
     if(this.user){
-      if(operation === "add"){
-        let newBalance = this._user.balance + amount;
-        this._user.balance = newBalance;
-        this.setUserToLocalStorage();
-      }else if(operation === "deduct"){
-        let newBalance = this._user.balance - amount;
-        this._user.balance = newBalance;
-        this.setUserToLocalStorage();
-      }
+      let newBalance = this._user.balance + amount;
+      this._user.balance = newBalance;
+      this.setUserToLocalStorage();
     }
-    return;
+  }
+
+  public deductBalance(amount: number){
+    if(this.user){
+      let newBalance = this._user.balance - amount;
+      this._user.balance = newBalance;
+      this.setUserToLocalStorage();
+    }
   }
 
   public pushBetHistory(bet: any[]){
@@ -44,8 +45,6 @@ export class AuthService {
       this._user.betHistory = [...this._user.betHistory, bet];
     }
     this.setUserToLocalStorage();
-    console.log(this._user.betHistory);
-    
   }
 
   public get user(): User{

@@ -75,14 +75,14 @@ export class GameService {
   }
 
   handleBet(amount: number, cashOut: number){
-    this.auth.updateBalance(amount, "deduct");
+    this.auth.deductBalance(amount);
     this.bet = [amount, cashOut];
   }
 
   handleWin(){
     this.win = true;
     this.prize = Number(this.bet[0]) * Number(this.bet[1]);
-    this.auth.updateBalance(this.prize, "add");
+    this.auth.addBalance(this.prize);
   }
 
 }
