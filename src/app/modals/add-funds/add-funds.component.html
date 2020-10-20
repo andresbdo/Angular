@@ -1,0 +1,14 @@
+<h1 mat-dialog-title>¡Hola {{auth.user.username}}!</h1>
+<div mat-dialog-content>
+    <form [formGroup]="balanceForm" class="form">
+        <mat-form-field>
+            <mat-label>Agregar fondos</mat-label>
+            <input matInput type="number" formControlName="amount" name="amount" (keyDown.enter)="updateBalance()"> 
+            <mat-error for="amount">{{ errors.getErrorMessage("amount", controlNames) }}</mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions class="actions">
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+    <button mat-raised-button color="primary" (click)="updateBalance()">Agregar</button>
+</div>

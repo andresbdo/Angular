@@ -1,10 +1,8 @@
-import { AuthService } from '../../auth.service';
+import { FormErrorsService } from './../../services/form-errors.service';
+import { AuthService } from '../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators} from '@angular/forms'; 
 import { Router } from '@angular/router';
-import errors from '../../utils/errorCodes';
-
-
 
 @Component({
   selector: 'app-login',
@@ -26,7 +24,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public router: Router,
-    public auth: AuthService
+    public auth: AuthService,
+    public errors: FormErrorsService
   ) {
   }
 
@@ -36,26 +35,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  getErrorMessage(input: string) {
-    let errorsAux;
-    if (this.controlNames[input]) errorsAux = this.controlNames[input].errors;
-    if (errorsAux) {
-      const keys = Object.keys(this.controlNames[input].errors);
-      if (!keys || keys.length === 0) return '';
-      console.log(errors[Object.keys(this.controlNames[input].errors)[0]])
-      return errors[Object.keys(this.controlNames[input].errors)[0]];
-    } else {
-      return '';
-    }
-  }
-
 
   sendForm(): void {
     this.loginForm.markAllAsTouched();
     if(this.loginForm.invalid){
       return;
     }else{
-      this.auth.login(this.controlNames.username.value, this.controlNames.amount.value)
+      this.auth.login(this.loginForm.get('username').value, this.loginForm.get('amount').value);
       this.router.navigate(['dashboard']);
     }
   }

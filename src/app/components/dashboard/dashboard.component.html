@@ -5,7 +5,7 @@
                 <div mat-card-avatar class="header-avatar"></div>
                 <mat-card-title>{{auth.user.username}}</mat-card-title>
                 <mat-card-subtitle>{{auth.user.balance}}$</mat-card-subtitle>
-                <button mat-button color="primary" >Agregar saldo</button>
+                <button mat-button color="primary" (click)="openDialog()">Agregar saldo</button>
             </mat-card-header>
             <mat-card-content>
                 <div class="bet">
@@ -13,29 +13,49 @@
                     <form [formGroup]="betForm">
                         <mat-form-field>
                             <mat-label>Monto</mat-label>
-                            <input (keyDown.enter)="sendForm()" matInput type="number" formControlName="amount" name="amount"> 
-                            <mat-error for="amount">{{ getErrorMessage("amount") }}</mat-error>
+                            <input (keyDown.enter)="placeBet()" matInput type="number" formControlName="amount" name="amount"> 
+                            <mat-error for="amount">{{ errors.getErrorMessage("amount", controlNames) }}</mat-error>
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Salida</mat-label>
-                            <input (keyDown.enter)="sendForm()" matInput type="number" formControlName="cashOut" name="cashOut" step="0.1" min="1.1" max="10.0"> 
-                            <mat-error for="cashOut">{{ getErrorMessage("cashOut") }}</mat-error>
+                            <input (keyDown.enter)="placeBet()" matInput type="number" formControlName="cashOut" name="cashOut" step="0.1" min="1.1" max="10.0"> 
+                            <mat-error for="cashOut">{{ errors.getErrorMessage("cashOut", controlNames) }}</mat-error>
                         </mat-form-field>
                     </form>
-                    <button mat-raised-button color="primary" (click)="sendForm()">Apostar</button>
+                    <button mat-raised-button color="primary" (click)="placeBet()" [disabled]="game.gameStarted || game.bet">Apostar</button>
+                </div>
+                <div class="bet-history">
+                    <h3>Historial de apuestas</h3>
+                    <div class="bet-history_title">
+                        <p>Apuesta</p>
+                        <p>Salida</p>
+                        <p>Resultado</p>
+                    </div>
+                    <div>
+                        <ul class="bet-history_list" *ngFor="let bet of auth.user.betHistory">
+                            <li>{{bet[0].toFixed(1)}}</li>
+                            <li>{{bet[1]}}</li>
+                            <li>{{bet[2].toFixed(1)}}</li>
+                        </ul>
+                    </div>
                 </div>
             </mat-card-content>
         </mat-card>
     </section>
     <section class="main">
-        <section class="game-panel"><h1>1.4x</h1></section>
+        <section class="game-panel">
+            <div class="game-status">
+                <h1 *ngIf="!game.gameStarted">Juego empezando</h1>
+            </div>
+            <div class="game-time">
+                <h1>{{game.time.toFixed(1)}}x</h1>
+                <h1 *ngIf="game.win">GANADOR!</h1>
+            </div>
+        </section>
         <section class="results">
             <h4>Resultados:</h4>
             <ul>
-                <li>1.4x</li>
-                <li>6.2x</li>
-                <li>8.1x</li>
-                <li>3.0x</li>
+                <li *ngFor="let result of game.lastResults.reverse()">{{result}}x</li>
             </ul>
         </section> 
     </section>
